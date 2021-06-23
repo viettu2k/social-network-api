@@ -1,0 +1,27 @@
+{
+    "name": "social-network-api",
+    "version": "1.0.0",
+    "description": "A Node Js API",
+    "main": "app.js",
+    "scripts": {
+        "start": "nodemon app.js",
+        "start:dev": "nodemon app.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.1",
+        "express-validator": "^5.3.0",
+        "mongoose": "^5.12.14",
+        "morgan": "^1.10.0",
+        "uuid": "^8.3.2",
+        "yarn": "^1.22.10"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.7",
+        "prettier": "2.3.1"
+    }
+}
