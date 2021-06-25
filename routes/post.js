@@ -5,6 +5,7 @@ const {
   postByUser,
   postById,
   isPoster,
+  updatePost,
   deletePost,
 } = require("../controllers/post");
 const { requireSignin } = require("../controllers/auth");
@@ -21,6 +22,7 @@ router.post(
   createPostValidator
 );
 router.get("/posts/by/:userId", requireSignin, postByUser);
+router.put("/post/:postId", requireSignin, isPoster, updatePost);
 router.delete("/post/:postId", requireSignin, isPoster, deletePost);
 
 // any route conatining: userId, our app will first excute userById()
