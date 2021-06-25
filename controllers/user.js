@@ -43,7 +43,7 @@ exports.updateUser = (req, res, next) => {
   user.save((err) => {
     if (err) {
       return res.status(400).json({
-        error: "You are not authorized to perform this action",
+        error: "You are not authorized to perform this action!",
       });
     }
     user.hashed_password = undefined;

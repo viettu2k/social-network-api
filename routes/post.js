@@ -1,5 +1,12 @@
 const express = require("express");
-const { getPost, createPost, postByUser } = require("../controllers/post");
+const {
+  getPost,
+  createPost,
+  postByUser,
+  postById,
+  isPoster,
+  deletePost,
+} = require("../controllers/post");
 const { requireSignin } = require("../controllers/auth");
 const { userById } = require("../controllers/user");
 const { createPostValidator } = require("../validator");
@@ -14,8 +21,12 @@ router.post(
   createPostValidator
 );
 router.get("/posts/by/:userId", requireSignin, postByUser);
+router.delete("/post/:postId", requireSignin, isPoster, deletePost);
 
 // any route conatining: userId, our app will first excute userById()
 router.param("userId", userById);
+
+// any route conatining: postId, our app will first excute postById()
+router.param("postId", postById);
 
 module.exports = router;
