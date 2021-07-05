@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
         trim: true,
     },
     following: [{ type: ObjectId, ref: "User" }],
-    follers: [{ type: ObjectId, ref: "User" }],
+    followers: [{ type: ObjectId, ref: "User" }],
 });
 
 // virtual field
