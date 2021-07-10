@@ -44,6 +44,7 @@ exports.getUser = (req, res) => {
     return res.json(req.profile);
 };
 
+// update without form data
 // exports.updateUser = (req, res, next) => {
 //     let user = req.profile;
 //     user = _.extend(user, req.body); // extend - mutate the source object
