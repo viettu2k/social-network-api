@@ -4,15 +4,15 @@ const { ObjectId } = mongoose.Schema;
 const postSchema = new mongoose.Schema({
     title: {
         type: String,
-        require: true,
+        required: true,
     },
     body: {
         type: String,
-        require: true,
+        required: true,
     },
     photo: {
         data: Buffer,
-        contentType: String,
+        contenType: String,
     },
     postedBy: {
         type: ObjectId,
@@ -24,6 +24,11 @@ const postSchema = new mongoose.Schema({
     },
     updated: Date,
     likes: [{ type: ObjectId, ref: "User" }],
+    comments: [{
+        text: String,
+        created: { type: Date, default: Date.now },
+        postedBy: { type: ObjectId, ref: "User" },
+    }, ],
 });
 
 module.exports = mongoose.model("Post", postSchema);
