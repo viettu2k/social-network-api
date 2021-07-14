@@ -1,67 +1,85 @@
 exports.createPostValidator = (req, res, next) => {
-  // title
-  req.check("title", "Write a title").notEmpty();
-  req.check("title", "Title must be between 4 to 150 characters").isLength({
-    min: 4,
-    max: 150,
-  });
+    // title
+    req.check("title", "Write a title").notEmpty();
+    req.check("title", "Title must be between 4 to 150 characters").isLength({
+        min: 4,
+        max: 150,
+    });
 
-  // body
-  req.check("body", "Write a body").notEmpty();
-  req.check("body", "Body must be between 4 to 2000 characters").isLength({
-    min: 4,
-    max: 2000,
-  });
+    // body
+    req.check("body", "Write a body").notEmpty();
+    req.check("body", "Body must be between 4 to 2000 characters").isLength({
+        min: 4,
+        max: 2000,
+    });
 
-  // check for errors
-  const errors = req.validationErrors();
-  // if error show the first one as they happen
-  if (errors) {
-    const firstError = errors.map((error) => error.msg)[0];
-    return res.status(400).json({ error: firstError });
-  }
+    // check for errors
+    const errors = req.validationErrors();
+    // if error show the first one as they happen
+    if (errors) {
+        const firstError = errors.map((error) => error.msg)[0];
+        return res.status(400).json({ error: firstError });
+    }
 
-  // proceed to next middleware
-  next();
+    // proceed to next middleware
+    next();
 };
 
 exports.userSignupValidator = (req, res, next) => {
-  // name is not null and between 4-30 characters
-  req.check("name", "Name is requied").notEmpty();
-  req.check("name", "Name must be between 3-32 characters").isLength({
-    min: 3,
-    max: 32,
-  });
+    // name is not null and between 4-30 characters
+    req.check("name", "Name is requied").notEmpty();
+    req.check("name", "Name must be between 3-32 characters").isLength({
+        min: 3,
+        max: 32,
+    });
 
-  // email is not null, valid and normalized
-  req
-    .check("email", "Email must be between 10-32 characters")
-    .isLength({
-      min: 10,
-      max: 2000,
-    })
-    .matches(/.+\@.+\..+/)
-    .withMessage("Email must contain @");
+    // email is not null, valid and normalized
+    req.check("email", "Email must be between 10-32 characters")
+        .isLength({
+            min: 10,
+            max: 2000,
+        })
+        .matches(/.+\@.+\..+/)
+        .withMessage("Email must contain @");
 
-  //check for password
-  req.check("password", "Password is requied").notEmpty();
-  req
-    .check("password")
-    .isLength({
-      min: 6,
-    })
-    .withMessage("Password must contain at least 6 characters")
-    .matches(/\d/)
-    .withMessage("Password must contain a number");
+    //check for password
+    req.check("password", "Password is requied").notEmpty();
+    req.check("password")
+        .isLength({
+            min: 6,
+        })
+        .withMessage("Password must contain at least 6 characters")
+        .matches(/\d/)
+        .withMessage("Password must contain a number");
 
-  // check for errors
-  const errors = req.validationErrors();
-  // if error show the first one as they happen
-  if (errors) {
-    const firstError = errors.map((error) => error.msg)[0];
-    return res.status(400).json({ error: firstError });
-  }
+    // check for errors
+    const errors = req.validationErrors();
+    // if error show the first one as they happen
+    if (errors) {
+        const firstError = errors.map((error) => error.msg)[0];
+        return res.status(400).json({ error: firstError });
+    }
 
-  // proceed to next middleware
-  next();
+    // proceed to next middleware
+    next();
+};
+
+exports.passwordResetValidator = (req, res, next) => {
+    // check for password
+    req.check("newPassword", "Password is required").notEmpty();
+    req.check("newPassword")
+        .isLength({ min: 6 })
+        .withMessage("Password must be at least 6 chars long")
+        .matches(/\d/)
+        .withMessage("Password must contain a number");
+
+    // check for errors
+    const errors = req.validationErrors();
+    // if error show the first one as they happen
+    if (errors) {
+        const firstError = errors.map((error) => error.msg)[0];
+        return res.status(400).json({ error: firstError });
+    }
+    // proceed to next middleware or ...
+    next();
 };
