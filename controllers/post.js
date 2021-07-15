@@ -7,6 +7,7 @@ exports.postById = (req, res, next, id) => {
     Post.findById(id)
         .populate("postedBy", "_id name role")
         .populate("comments.postedBy", "_id name")
+        .select("_id title body created likes comments photo")
         .exec((err, post) => {
             if (err || !post) {
                 return res.status(400).json({ error: err });
@@ -20,7 +21,7 @@ exports.getPosts = async(req, res) => {
     // get current page from req.query or use default value of 1
     const currentPage = req.query.page || 1;
     // return 3 posts per page
-    const perPage = 3;
+    const perPage = 6;
     let totalItems;
 
     const posts = await Post.find()
@@ -32,9 +33,9 @@ exports.getPosts = async(req, res) => {
                 .skip((currentPage - 1) * perPage)
                 .populate("comments", "text created")
                 .populate("postedBy", "_id name")
-                .sort({ date: -1 })
+                .select("_id title body created likes")
                 .limit(perPage)
-                .select("_id title body likes");
+                .sort({ created: -1 });
         })
         .then((posts) => {
             res.status(200).json(posts);
