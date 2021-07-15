@@ -38,6 +38,10 @@ const userSchema = new mongoose.Schema({
         data: String,
         default: "",
     },
+    role: {
+        type: String,
+        default: "subscriber",
+    },
 });
 
 // virtual field
