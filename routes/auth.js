@@ -20,9 +20,6 @@ router.get("/signout", signout);
 router.put("/forgot-password", forgotPassword);
 router.put("/reset-password", passwordResetValidator, resetPassword);
 
-// social login
-router.post("/social-login", socialLogin);
-
 // any route conatining: userId, our app will first excute userById()
 router.param("userId", userById);
 
