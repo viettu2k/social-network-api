@@ -14,7 +14,7 @@ exports.userById = (req, res, next, id) => {
                     error: "User not found",
                 });
             }
-            req.profile = user; // adds profile object in req with user info
+            req.profile = user;
             next();
         });
 };
